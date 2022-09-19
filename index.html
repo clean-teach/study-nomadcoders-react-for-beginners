@@ -14,9 +14,21 @@
             style: {
                 color: 'red'
             }, 
+            onMouseEnter: () => console.log('mouse enter')
         }, 
         'Hello I am a span'
     );
-    ReactDOM.render(span, root);
+    const btn = React.createElement(
+        'button', 
+        {
+            onClick: () => console.log('im clicked'),
+            style: {
+                backgroundColor: 'tomato'
+            }
+        }, 
+        'Click me'
+    );
+    const container = React.createElement('div', null, [span, btn])
+    ReactDOM.render(container, root);
 </script>
 </html>
