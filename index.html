@@ -3,11 +3,12 @@
 <body>
     <div id="root"></div>
 </body>
-<script src="https://unpkg.com/react@18.2.0/umd/react.production.min.js"></script>
+<script src="https://unpkg.com/react@18.2.0/umd/react.development.js"></script>
 <script src="https://unpkg.com/react-dom@18.2.0/umd/react-dom.production.min.js"></script>
+<script src="https://unpkg.com/prop-types@15.6/prop-types.js"></script>
 <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
 <script type="text/babel">
-    function Btn ({text, big, onClick}) {
+    function Btn ({text, big, onClick, fontWeight="normal"}) {
         console.log(text, 'was Render')
         return (
             <button onClick={onClick} style={{
@@ -16,11 +17,18 @@
                 padding: "10px 20px",
                 border: 0,
                 borderRadius: "5px",
-                fontSize: big? "32px" : "16px"
+                fontSize: big? "32px" : "16px",
+                fontWeight: fontWeight
             }}>{text}</button>
         )
     }
     const MemorizedBtn = React.memo(Btn);
+    Btn.propTypes = {
+        text: PropTypes.string,
+        big: PropTypes.bool,
+        onClick: PropTypes.func,
+        fontWeight: PropTypes.string.isRequired,
+    };
     function App() {
         const [value, setValue] = React.useState("Save");
         const onChange = () => {
@@ -28,8 +36,8 @@
         }
         return (
             <>
-                <MemorizedBtn text={value} big={true} onClick={onChange} />
-                <MemorizedBtn text="Cancel" big={false} />
+                <Btn text={value} big={true} onClick={onChange} fontWeight="bold" />
+                <Btn text="Cancel" big={false} />
             </>
         )
     }
